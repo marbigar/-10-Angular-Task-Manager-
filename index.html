@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/models/taskService.js"></script>
+    <script src="js/controllers/mainCtrl.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="mainCtrl as main">
+
+<div class="container spacer-top">
+    <h1>Список справ</h1>
+
+    <div class="form-group spacer-top">
+        <div class="input-group">
+            <input ng-model="main.addBlock.title" type="text" class="form-control" placeholder="Введіть текст...">
+            <span class="input-group-btn">
+                <button ng-click="main.add()" class="btn btn-success" type="button">Додати</button>
+            </span>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Задача</th>
+            <th class="text-center">Статус</th>
+            <th class="text-right"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key, task) in main.tasks">
+            <td class="text-center">
+                <input ng-model="task.checked" type="checkbox" ng-change="main.check(task.id, task.checked)">
+            </td>
+            <td>{{task.title}}</td>
+            <td class="text-center">{{task.status}}</td>
+            <td class="text-right">
+                <button ng-click="main.edit(task)" class="btn-hidden btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button ng-click="main.delete(task.id)" class="btn-hidden btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div ng-hide="main.formHidden" class="form-group row">
+        <div class="col-xs-1">
+            <input ng-model="main.editId" type="text" class="form-control text-center">
+        </div>
+        <div class="col-xs-11">
+            <div class="input-group">
+                <input ng-model="main.editText" type="text" class="form-control">
+                <span class="input-group-btn">
+                <button ng-click="main.editSave()" class="btn btn-success" type="button">Зберегти</button>
+            </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
